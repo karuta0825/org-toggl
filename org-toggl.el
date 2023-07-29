@@ -236,7 +236,9 @@ By default, delete the current one."
   (let* ((heading (substring-no-properties (org-get-heading t t t t)))
 	 (project (org-entry-get (point) "toggl-project" org-toggl-inherit-toggl-properties))
 	 (pid (toggl-get-pid project)))
-    (when pid (toggl-start-time-entry heading pid t))))
+    (if pid
+        (toggl-start-time-entry heading pid t)
+      (toggl-start-time-entry heading nil t))))
 
 (defun org-toggl-clock-out ()
   "Stop the running Toggle time entry."
